@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,7 +117,7 @@
 
         .card img {
             width: 100%;
-            height: 220px;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
             border-radius: 4px;
         }
@@ -129,6 +130,60 @@
 
         footer {
             height: 60px;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 10px;
+            }
+
+            .title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 22px;
+            }
+
+            .branch-card {
+                padding: 18px;
+            }
+
+            .branch-card h3 {
+                font-size: 16px;
+            }
+
+            .branch-card p {
+                font-size: 13px;
+            }
+
+            .card h3 {
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
         }
     </style>
 </head>
@@ -151,9 +206,8 @@
 
     <section class="container">
 
- <div class="title">Our Branches</div>
+        <div class="title">Our Branches</div>
 
-        <!-- Branch Addresses -->
         <div class="branches">
             <div class="branch-card">
                 <h3>Piduguralla Main Branch</h3>
@@ -161,8 +215,8 @@
                     Balaji Sweets and Cool Drinks<br>
                     Beside Gangamma Temple, Main Road<br>
                     Piduguralla, Palnadu<br>
-                    Andhra Pradesh-522413<br>
-                    📞 7702317777
+                    Andhra Pradesh - 522413<br>
+                    📞 9989606777
                 </p>
             </div>
 
@@ -172,8 +226,8 @@
                     Balaji Sweets and Cool Drinks<br>
                     Main Road<br>
                     Piduguralla, Palnadu<br>
-                    Andhra Pradesh-522413<br>
-                    📞 
+                    Andhra Pradesh - 522413<br>
+                    📞 78978 97567, 73578 95789
                 </p>
             </div>
 
@@ -181,10 +235,10 @@
                 <h3>Miryalaguda</h3>
                 <p>
                     Balaji Sweets and Cool Drinks<br>
-                    Srilatha lodge, Sagar Rd<br>
+                    Srilatha Lodge, Sagar Road<br>
                     Doctors Colony, Miryalaguda<br>
-                     Telangana-508207<br>
-                    📞 
+                    Telangana - 508207<br>
+                     📞 90919 19994, 90919 19992
                 </p>
             </div>
         </div>
@@ -193,42 +247,42 @@
 
         <div class="grid">
             <div class="card">
-                <img src="images/motichoor-laddoo.jpg">
+                <img src="images/motichoor-laddoo.jpg" alt="Signature Sweets">
                 <h3>SIGNATURE SWEETS</h3>
             </div>
 
             <div class="card">
-                <img src="images/indian-sweets.jpg">
+                <img src="images/indian-sweets.jpg" alt="Indian Sweets">
                 <h3>INDIAN SWEETS</h3>
             </div>
 
             <div class="card">
-                <img src="images/sugar-free.jpg">
+                <img src="images/sugar-free.jpg" alt="Sugar Free Sweets">
                 <h3>SUGAR-FREE</h3>
             </div>
 
             <div class="card">
-                <img src="images/namkeen.jpg">
+                <img src="images/namkeen.jpg" alt="Namkeen">
                 <h3>NAMKEEN</h3>
             </div>
 
             <div class="card">
-                <img src="images/bengali-sweets.jpg">
+                <img src="images/bengali-sweets.jpg" alt="Bengali Sweets">
                 <h3>BENGALI SWEETS</h3>
             </div>
 
             <div class="card">
-                <img src="images/snacks.jpg">
+                <img src="images/snacks.jpg" alt="Snacks">
                 <h3>SNACKS</h3>
             </div>
 
             <div class="card">
-                <img src="images/dry-fruits.jpg">
+                <img src="images/dry-fruits.jpg" alt="Dry Fruits">
                 <h3>DRY FRUITS</h3>
             </div>
 
             <div class="card">
-                <img src="images/cool-drinks.jpg">
+                <img src="images/cool-drinks.jpg" alt="Cool Drinks">
                 <h3>COOL DRINKS</h3>
             </div>
         </div>
