@@ -88,7 +88,7 @@
             background-color: #f8f3e8;
             padding: 10px 20px;
             border-bottom: 2px solid #e0d2b5;
-            position: sticky;
+            position: static;
             top: 0;
             z-index: 1000;
         }
@@ -134,6 +134,7 @@
             font-weight: bold;
             color: #8b2d1f;
             white-space: nowrap;
+            word-spacing: 9px; /* increased spacing between words */
         }
 
         /* Hamburger Menu Icon */
@@ -293,6 +294,7 @@
         @media (max-width: 480px) {
             .nav-logo-text {
                 font-size: 18px;
+                word-spacing: 3px; /* slightly tighter between words on small screens */
             }
 
             .site-logo {
@@ -358,7 +360,7 @@
             </div>
 
             <div class="nav-column-center">
-                <div class="nav-logo-text">Balaji Sweets and cool drinks</div>
+                <div class="nav-logo-text">Balaji Sweets and Cool Drinks</div>
             </div>
 
             <div class="nav-column-right">
