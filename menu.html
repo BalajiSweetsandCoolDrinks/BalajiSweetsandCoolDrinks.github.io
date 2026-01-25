@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Balaji Sweets and Cool Drinks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: #fffdf5;
+            color: #7a2d1d;
+        }
+
+        header {
+            background: #f8f3e8;
+            padding: 20px;
+            border-bottom: 2px solid #e0d2b5;
+        }
+
+        header .wrap {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: #8b2d1f;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #4a3a2f;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: #8b2d1f;
+            margin-bottom: 40px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .menu-item {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* floating cart + modal styling */
+        .cart-float {
+            position: fixed; right: 20px; bottom: 100px; width:56px; height:56px; border-radius:50%; background:#8b2d1f; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.18); z-index:1100; text-decoration:none;
+        }
+        .cart-count { position:absolute; top:-6px; right:-6px; background:#FFD700; color:#8b2d1f; width:20px; height:20px; border-radius:50%; font-size:12px; display:flex; align-items:center; justify-content:center; }
+        .cart-modal { position: fixed; right: 20px; bottom: 170px; width:320px; max-height:60vh; overflow:auto; background:#fffef8; border:1px solid #e0d2b5; box-shadow:0 12px 40px rgba(0,0,0,0.15); border-radius:8px; padding:12px; z-index:1200; display:none; }
+        .cart-modal h3{ margin:0 0 10px 0; color:#8b2d1f }
+        .cart-item{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee }
+        .cart-actions{ margin-top:10px; display:flex; gap:8px; }
+
+        .menu-title {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #8b2d1f;
+            letter-spacing: 1px;
+        }
+
+        .menu-price {
+            margin-top: 5px;
+            color: #4a3a2f;
+        }
+
+        /* Product Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .product-modal {
+            background: #fffdf5;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        /* Size Selection Buttons */
+        .option-label {
+            font-weight: bold;
+            margin: 20px 0 10px;
+            display: block;
+        }
+
+        .size-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .size-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e0d2b5;
+            background: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #4a3a2f;
+            transition: 0.2s;
+        }
+
+        .size-btn.active {
+            background: #8b2d1f;
+            color: white;
+            border-color: #8b2d1f;
+        }
+
+        /* Quantity and Add to Cart */
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .qty-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0d2b5;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .qty-btn {
+            width: 40px; height: 40px;
+            border: none; background: none;
+            font-size: 20px; cursor: pointer;
+            color: #8b2d1f;
+        }
+
+        #qtyVal {
+            width: 40px; text-align: center;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            flex-grow: 1;
+            margin-left: 20px;
+            padding: 15px;
+            background: #8b2d1f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .menu-item img { height: 200px; }
+        }
+        /* Toast for non-blocking confirmations */
+        #toast { position: fixed; right: 20px; bottom: 180px; background: rgba(0,0,0,0.8); color: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index:1300; display:none; font-weight:600; }
+    </style>
+    <link rel="stylesheet" href="assets/cart.css">
+</head>
+<body>
+
+<header>
+    <div class="wrap">
+        <div class="logo">Balaji Sweets and Cool Drinks</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h1>Our Menu</h1>
+    <div class="menu-grid">
+        <div class="menu-item" onclick="openProduct('MOTICHOOR LADDU', 200, 'images/motichoor-laddoo.jpg')">
+            <img src="images/motichoor-laddoo.jpg" alt="Motichoor Laddu">
+            <div class="menu-title">MOTICHOOR LADDU</div>
+            <div class="menu-price">From ₹ 200</div>
+        </div>
+
+        <div class="menu-item" onclick="openProduct('KAJU KATLI', 500, 'images/sugar-free.jpg')">
+            <img src="images/sugar-free.jpg" alt="Kaju Katli">
+            <div class="menu-title">KAJU KATLI</div>
+            <div class="menu-price">From ₹ 500</div>
+        </div>
+
+        <div class="menu-item" onclick="openProduct('ASSORTED SWEETS', 300, 'images/indian-sweets.jpg')">
+            <img src="images/indian-sweets.jpg" alt="Assorted Sweets">
+            <div class="menu-title">ASSORTED SWEETS</div>
+            <div class="menu-price">From ₹ 300</div>
+        </div>
+    </div>
+</main>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="product-modal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImg" src="" style="width:100%; height:250px; object-fit:cover;">
+        
+        <div class="modal-body">
+            <h2 id="modalTitle" style="margin:0; color:#8b2d1f;"></h2>
+            <p id="modalPrice" style="font-size:24px; font-weight:bold; margin:10px 0;"></p>
+            
+            <span class="option-label">Size:</span>
+            <div class="size-container">
+                <button class="size-btn active" onclick="updateSize(0.25, this)">250 Gms</button>
+                <button class="size-btn" onclick="updateSize(0.5, this)">500 Gms</button>
+                <button class="size-btn" onclick="updateSize(1.0, this)">1 kg</button>
+            </div>
+
+            <div class="action-row">
+                <div class="qty-input">
+                    <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                    <span id="qtyVal">1</span>
+                    <button class="qty-btn" onclick="updateQty(1)">+</button>
+                </div>
+                <button class="add-btn" onclick="addToCart()">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initial product state
+    let productState = {
+        name: '',
+        basePrice: 0,
+        currentWeight: 0.25,
+        quantity: 1
+    };
+
+    function openProduct(name, price, img) {
+        productState = { name: name, basePrice: price, currentWeight: 0.25, quantity: 1 };
+        
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('qtyVal').innerText = 1;
+        
+        // Reset button states
+        document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.size-btn').classList.add('active');
+        
+        calculatePrice();
+        document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function updateSize(weight, btn) {
+        productState.currentWeight = weight;
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        calculatePrice();
+    }
+
+    function updateQty(val) {
+        productState.quantity = Math.max(1, productState.quantity + val);
+        document.getElementById('qtyVal').innerText = productState.quantity;
+        calculatePrice();
+    }
+
+    function calculatePrice() {
+        // Price scales based on 250g units
+        const unitCount = productState.currentWeight / 0.25;
+        const total = (productState.basePrice * unitCount) * productState.quantity;
+        document.getElementById('modalPrice').innerText = "₹ " + total.toLocaleString();
+    }
+
+    function addToCart() {
+        const weightLabel = productState.currentWeight < 1 ? (productState.currentWeight * 1000) + " Gms" : "1 kg";
+        const item = {
+            id: productState.name.replace(/\s+/g,'-').toLowerCase(),
+            title: productState.name,
+            price: productState.basePrice * (productState.currentWeight/0.25),
+            qty: productState.quantity,
+            weight: weightLabel
+        };
+        addToCartItem(item);
+        closeModalFunc();
+    }
+
+    function closeModalFunc() {
+        document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    // Close logic
+    document.getElementById('closeModal').onclick = closeModalFunc;
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('modalOverlay')) closeModalFunc();
+    }
+</script>
+
+<!-- Cart UI -->
+<a href="#" class="cart-float" id="cartBtn" aria-label="Open cart">🛒<span class="cart-count" id="cartCount">0</span></a>
+<div class="cart-modal" id="cartModal" aria-hidden="true">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div class="cart-actions">
+        <button id="clearCart">Clear</button>
+        <button id="checkout">Checkout via WhatsApp</button>
+    </div>
+</div>
+
+<script src="assets/cart.js"></script>
+
+<!-- toast element (cart.js will create one if missing but keep this for better UX) -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
